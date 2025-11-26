@@ -1,62 +1,71 @@
 import "./App.css";
-import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
-import { Login } from "./components/authentication/Login";
-import { Register } from "./components/authentication/Register";
-import MainLayout from "./components/MainLayout";
-import { useState } from "react";
+import { useContext } from "react";
+import { UserInfoContext } from "./components/userInfo/UserInfoContexts";
+import {
+  BrowserRouter,
+  Navigate,
+  Route,
+  Routes,
+  useLocation,
+} from "react-router-dom";
+import Login from "./components/authentication/login/Login";
+import Register from "./components/authentication/register/Register";
+import MainLayout from "./components/mainLayout/MainLayout";
+import Toaster from "./components/toaster/Toaster";
+import FolloweesScroller from "./components/mainLayout/FolloweesScroller";
+import FollowersScroller from "./components/mainLayout/FollowersScroller";
+import FeedScroller from "./components/mainLayout/FeedScroller";
+import StoryScroller from "./components/mainLayout/StoryScroller";
 
-function App() {
-  const [user, setUser] = useState("");
-  const [authToken, setAuthToken] = useState("");
-  const [password, setPassword] = useState("");
-  const isAuthenticated = () => {
-    console.log(user)
-    return !!user;
+const App = () => {
+  const { currentUser, authToken } = useContext(UserInfoContext);
+
+  const isAuthenticated = (): boolean => {
+    return !!currentUser && !!authToken;
   };
+
   return (
-    <div className="App">
+    <div>
+      <Toaster position="top-right" />
       <BrowserRouter>
         {isAuthenticated() ? (
-          <AuthenticatedRoutes user={user} authToken={authToken} />
+          <AuthenticatedRoutes />
         ) : (
-          <UnAuthenticatedRoutes setUser={setUser} setPassword={setPassword} />
+          <UnauthenticatedRoutes />
         )}
       </BrowserRouter>
     </div>
   );
-}
+};
 
-interface Prop {
-  user: string | undefined;
-  authToken: string | undefined;
-}
+const AuthenticatedRoutes = () => {
+  const { displayedUser } = useContext(UserInfoContext);
 
-const AuthenticatedRoutes = (props: Prop) => {
   return (
     <Routes>
       <Route element={<MainLayout />}>
-        <Route index element={<Navigate to={`home`} />} />
-        <Route path="home" element={<Register />} />
+        <Route index element={<Navigate to={`/feed/${displayedUser!.alias}`} />} />
+        <Route path="feed/:displayedUser" element={<FeedScroller />} />
+        <Route path="story/:displayedUser" element={<StoryScroller />} />
+        <Route path="followees/:displayedUser" element={<FolloweesScroller />} />
+        <Route path="followers/:displayedUser" element={<FollowersScroller />} />
+        <Route path="logout" element={<Navigate to="/login" />} />
+        <Route path="*" element={<Navigate to={`/feed/${displayedUser!.alias}`} />} />
       </Route>
     </Routes>
   );
 };
-interface Props {
-  setUser: (user: string) => void;
-  setPassword: (password: string) => void;
-}
-const UnAuthenticatedRoutes = (props: Props) => {
+
+const UnauthenticatedRoutes = () => {
+  const location = useLocation();
+
   return (
     <Routes>
-      <Route index element={<Navigate to={"/login"} />} />
-      <Route
-        path="login"
-        element={
-          <Login setUser={props.setUser} setPassword={props.setPassword} />
-        }
-      />
-      <Route path="register" element={<Register />} />
+      <Route path="/login" element={<Login />} />
+      <Route path="/register" element={<Register />} />
+      <Route path="*" element={<Login originalUrl={location.pathname} />} />
     </Routes>
   );
 };
+
 export default App;

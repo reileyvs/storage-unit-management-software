@@ -1,13 +1,44 @@
+import "./AppNavbar.css";
+import { useContext } from "react";
+import {
+  UserInfoContext,
+  UserInfoActionsContext,
+} from "../userInfo/UserInfoContexts";
 import { Container, Nav, Navbar } from "react-bootstrap";
 import { NavLink, useLocation, useNavigate } from "react-router-dom";
-import Image from "react-bootstrap/image"
+import Image from "react-bootstrap/Image";
+import { ToastActionsContext } from "../toaster/ToastContexts";
+import { AuthToken } from "joy-shared";
+import { ToastType } from "../toaster/Toast";
 
-export const AppNavbar = () => {
+const AppNavbar = () => {
   const location = useLocation();
+  const { authToken, displayedUser } = useContext(UserInfoContext);
+  const { clearUserInfo } = useContext(UserInfoActionsContext);
   const navigate = useNavigate();
+  const { displayToast, deleteToast } = useContext(ToastActionsContext);
 
   const logOut = async () => {
+    const loggingOutToastId = displayToast(ToastType.Info, "Logging Out...", 0);
 
+    try {
+      await logout(authToken!);
+
+      deleteToast(loggingOutToastId);
+      clearUserInfo();
+      navigate("/login");
+    } catch (error) {
+      displayToast(
+        ToastType.Error,
+        `Failed to log user out because of exception: ${error}`,
+        0
+      );
+    }
+  };
+
+  const logout = async (authToken: AuthToken): Promise<void> => {
+    // Pause so we can see the logging out message. Delete when the call to the server is implemented.
+    await new Promise((res) => setTimeout(res, 1000));
   };
 
   return (
@@ -38,21 +69,21 @@ export const AppNavbar = () => {
           <Nav className="ml-auto">
             <Nav.Item>
               <NavLink
-                to={`/posts/`}
+                to={`/feed/${displayedUser!.alias}`}
                 className={() =>
-                  location.pathname.startsWith("/posts/")
+                  location.pathname.startsWith("/feed/")
                     ? "nav-link active"
                     : "nav-link"
                 }
               >
-                Posts
+                Feed
               </NavLink>
             </Nav.Item>
             <Nav.Item>
               <NavLink
-                to={`/giving/`}
+                to={`/story/${displayedUser!.alias}`}
                 className={() =>
-                  location.pathname.startsWith("/giving/")
+                  location.pathname.startsWith("/story/")
                     ? "nav-link active"
                     : "nav-link"
                 }
@@ -62,14 +93,26 @@ export const AppNavbar = () => {
             </Nav.Item>
             <Nav.Item>
               <NavLink
-                to={`/lending/`}
+                to={`/followees/${displayedUser!.alias}`}
                 className={() =>
-                  location.pathname.startsWith("/lending/")
+                  location.pathname.startsWith("/followees/")
                     ? "nav-link active"
                     : "nav-link"
                 }
               >
                 Lending
+              </NavLink>
+            </Nav.Item>
+            <Nav.Item>
+              <NavLink
+                to={`/followers/${displayedUser!.alias}`}
+                className={() =>
+                  location.pathname.startsWith("/followers/")
+                    ? "nav-link active"
+                    : "nav-link"
+                }
+              >
+                Community
               </NavLink>
             </Nav.Item>
             <Nav.Item>
@@ -90,3 +133,5 @@ export const AppNavbar = () => {
     </Navbar>
   );
 };
+
+export default AppNavbar;
