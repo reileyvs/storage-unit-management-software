@@ -10,6 +10,8 @@ import { ToastActionsContext } from "../toaster/ToastContexts";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import { ToastType } from "../toaster/Toast";
 import Post from "../statusItem/Post";
+import UserInfo from "../userInfo/UserInfoComponent";
+import PostStatus from "../postStatus/PostStatus";
 
 export const PAGE_SIZE = 10;
 
@@ -122,54 +124,66 @@ const FeedScroller = () => {
   };
 
   return (
-    <div className="container px-0 overflow-visible vh-100">
-      <InfiniteScroll
-        className="pr-0 mr-0"
-        dataLength={items.length}
-        next={() => loadMoreItems(lastItem)}
-        hasMore={hasMoreItems}
-        loader={<h4>Loading...</h4>}
-      >
-        {items.map((item, index) => (
-          <div
-            key={index}
-            className="row mb-3 mx-0 px-0 border rounded bg-white"
-          >
-            <div className="col bg-light mx-0 px-0">
-              <div className="container px-0">
-                <div className="row mx-0 px-0">
-                  <div className="col-auto p-3">
-                    <img
-                      src={item.user.imageUrl}
-                      className="img-fluid"
-                      width="80"
-                      alt="Posting user"
-                    />
-                  </div>
-                  <div className="col">
-                    <h2>
-                      <b>
-                        {item.user.firstName} {item.user.lastName}
-                      </b>{" "}
-                      -{" "}
-                      <Link
-                        to={`/feed/${item.user.alias}`}
-                        onClick={navigateToUser}
-                      >
-                        {item.user.alias}
-                      </Link>
-                    </h2>
-                    {item.formattedDate}
-                    <br />
-                    <Post status={item} featurePath="/feed" />
+    <>
+      {/* Sidebar and feed as two responsive columns. MainLayout already provides a .row parent, so these will act as columns. */}
+      <div className="col-12 col-md-4">
+        <div className="p-3 mb-4 border rounded bg-light">
+          <UserInfo />
+        </div>
+        <div className="p-3 border mt-1 rounded bg-light">
+          <PostStatus />
+        </div>
+      </div>
+
+      <div className="col-12 col-md-8">
+        <InfiniteScroll
+          className="pr-0 mr-0"
+          dataLength={items.length}
+          next={() => loadMoreItems(lastItem)}
+          hasMore={hasMoreItems}
+          loader={<h4>Loading...</h4>}
+        >
+          {items.map((item, index) => (
+            <div
+              key={index}
+              className="row mb-3 mx-0 px-0 border rounded bg-white"
+            >
+              <div className="col bg-light mx-0 px-0">
+                <div className="container px-0">
+                  <div className="row mx-0 px-0">
+                    <div className="col-auto p-3">
+                      <img
+                        src={item.user.imageUrl}
+                        className="img-fluid"
+                        width="80"
+                        alt="Posting user"
+                      />
+                    </div>
+                    <div className="col">
+                      <h2>
+                        <b>
+                          {item.user.firstName} {item.user.lastName}
+                        </b>{" "}
+                        -{" "}
+                        <Link
+                          to={`/feed/${item.user.alias}`}
+                          onClick={navigateToUser}
+                        >
+                          {item.user.alias}
+                        </Link>
+                      </h2>
+                      {item.formattedDate}
+                      <br />
+                      <Post status={item} featurePath="/feed" />
+                    </div>
                   </div>
                 </div>
               </div>
             </div>
-          </div>
-        ))}
-      </InfiniteScroll>
-    </div>
+          ))}
+        </InfiniteScroll>
+      </div>
+    </>
   );
 };
 
