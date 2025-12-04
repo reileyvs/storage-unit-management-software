@@ -1,2 +1,4 @@
-# storage-unit-management-software
-Software for storage unit management and customers
+# Joy
+Software for giving and lending in exchange for human interaction and the bliss of sharing with others
+
+I had recently picked up an excellent book from the library titled, "Buy Nothing, Get Everything", a book that inspires the individual to experience the gift of giving what is no longer useful for you, and receiving the joy that comes from knowing you helped someone else. This book was written by the founders of the "Buy Nothing Movement" which promotes the same. Inspired by this principle and believing that today, more than ever, we have the tools and technology necessary to transform the consumer market into a healthier and happier place for everyone and the planet, I present Joy, the app that connects you with those close to you, and allows you to experience in the easiest way possible, the joy of giving.

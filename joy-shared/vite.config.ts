@@ -6,8 +6,8 @@ export default defineConfig({
     lib: {
       entry: 'src/index.ts',
       name: 'joyShared',
-      formats: ['es', 'cjs'],
-      fileName: (format) => format === 'cjs' ? 'index.js' : 'joy-shared.mjs',
+      formats: ['es'],
+      fileName: () => 'index.js',
     },
     rollupOptions: {
       external: [],

@@ -1,11 +1,11 @@
-import { AuthToken } from "../model/domain/AuthToken";
-import { Status } from "../model/domain/Status";
-import { User } from "../model/domain/User";
+import { AuthToken } from "../model/domain/AuthToken.js";
+import { Status } from "../model/domain/Status.js";
+import { User } from "../model/domain/User.js";
 
 const MALE_IMAGE_URL: string =
-  "https://faculty.cs.byu.edu/~jwilkerson/cs340/tweeter/images/donald_duck.png";
+  "https://api.dicebear.com/7.x/avataaars/svg?seed=male&scale=80&mood=happy";
 const FEMALE_IMAGE_URL: string =
-  "https://faculty.cs.byu.edu/~jwilkerson/cs340/tweeter/images/daisy_duck.png";
+  "https://api.dicebear.com/7.x/avataaars/svg?seed=female&scale=80&mood=happy";
 
 export class FakeData {
   private readonly _authToken: AuthToken = AuthToken.Generate();

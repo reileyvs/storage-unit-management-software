@@ -6,3 +6,4 @@
 | 11-21 | 1:30 | Worked on login and register |
 | 11-25 | 1:30 | Created simple UI for being able to work on back-end easily |
 | 11-27 | 1:00 | Separated components from MainLayout and put them in Feed where they are used |
+| 12-03 | 1:30 | Created pitch and added server files and changed UI again |

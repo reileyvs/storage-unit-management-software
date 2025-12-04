@@ -4,18 +4,11 @@
   "version": "0.0.0",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
-  "exports": {
-    ".": {
-      "import": "./dist/joy-shared.mjs",
-      "require": "./dist/index.js",
-      "types": "./dist/index.d.ts"
-    }
-  },
   "scripts": {
     "dev": "vite",
-    "build": "vite build && tsc",
+    "build": "vite build",
     "preview": "vite preview",
-    "compile": "npm run clean && tsc",
+    "compile":"npm run clean && tsc",
     "clean": "rimraf dist"
   },
   "devDependencies": {
@@ -27,5 +20,6 @@
     "date-fns": "^3.3.1",
     "uuid": "^9.0.1",
     "vite-plugin-dts": "^3.7.3"
-  }
+  },
+  "type": "commonjs"
 }

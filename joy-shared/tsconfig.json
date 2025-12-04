@@ -1,8 +1,8 @@
 {
   "compilerOptions": {
-    "target": "ES2022",
+    "target": "esnext",
     "useDefineForClassFields": true,
-    "module": "CommonJS",
+    "module": "commonjs",
     "lib": ["ES2022"],
     "skipLibCheck": true,
     "outDir": "./dist",

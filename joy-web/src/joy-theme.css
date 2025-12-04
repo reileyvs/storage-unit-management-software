@@ -1,98 +1,253 @@
-:root{
-  /* Joy palette */
-  --joy-bg-start: #fff7f2;
-  --joy-bg-end: #e6fff7;
-  --joy-primary: #ff6b6b; /* coral */
-  --joy-secondary: #ffd166; /* sunny */
-  --joy-accent: #7bd389; /* mint */
-  --joy-accent-2: #7dd3fc; /* sky */
-  --joy-text: #0f172a; /* dark slate */
-  --joy-surface: #ffffff;
-  --joy-muted: #64748b;
+/* Joy Theme - Modern, colorful design celebrating connection and sharing */
+
+:root {
+  /* Primary Joy colors - warm, welcoming palette */
+  --joy-primary: #6bffb5; /* Coral red - energetic, warm */
+  --joy-secondary: #ffd166; /* Sunny yellow - optimistic, bright */
+  --joy-accent: #06d6a0; /* Mint green - fresh, modern */
+  --joy-accent-2: #118ab2; /* Ocean blue - trustworthy, calm */
+  --joy-accent-3: #ef474f; /* Rose - friendly, vibrant */
+
+  /* Neutral palette */
+  --joy-bg-light: #f8f9fa;
+  --joy-bg-white: #ffffff;
+  --joy-text-dark: #2c3e50;
+  --joy-text-muted: #6c757d;
+  --joy-border-light: #e0e0e0;
+
+  /* Gradients */
+  --joy-gradient-primary: linear-gradient(135deg, #ff6b6b 0%, #ffd166 100%);
+  --joy-gradient-secondary: linear-gradient(135deg, #06d6a0 0%, #118ab2 100%);
+  --joy-gradient-bg: linear-gradient(180deg, #fff7f2 0%, #f0f8ff 100%);
+
+  /* Spacing & sizing */
   --joy-radius: 12px;
+  --joy-radius-lg: 16px;
   --joy-radius-sm: 8px;
-  --joy-shadow: 0 8px 24px rgba(15,23,42,0.08);
-  --joy-elevation: 0 2px 8px rgba(15,23,42,0.06);
+  --joy-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  --joy-shadow-hover: 0 8px 24px rgba(0, 0, 0, 0.12);
+  --joy-shadow-lg: 0 12px 32px rgba(0, 0, 0, 0.15);
+
+  /* Transitions */
+  --joy-transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-/* Base page look */
-html, body, #root {
+/* Base HTML/Body styles */
+html,
+body,
+#root {
   height: 100%;
+  scroll-behavior: smooth;
 }
+
 body {
   margin: 0;
-  color: var(--joy-text);
-  background: linear-gradient(135deg, var(--joy-bg-start) 0%, var(--joy-bg-end) 100%);
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
+    "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
+    sans-serif;
+  background: var(--joy-gradient-bg);
+  color: var(--joy-text-dark);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-/* Utility / global components */
-.joy-container {
-  max-width: 980px;
-  margin: 24px auto;
-  padding: 20px;
-  background: linear-gradient(180deg, rgba(255,255,255,0.8), rgba(255,255,255,0.6));
-  border-radius: var(--joy-radius);
-  box-shadow: var(--joy-shadow);
-}
-
-button, .btn {
+/* Typography */
+h1, h2, h3, h4, h5, h6 {
+  color: var(--joy-text-dark);
   font-weight: 600;
-  color: #fff;
-  background: linear-gradient(90deg,var(--joy-primary), #ff8ea0);
-  border: none;
-  padding: 8px 14px;
-  border-radius: var(--joy-radius-sm);
-  cursor: pointer;
-  box-shadow: var(--joy-elevation);
-  transition: transform .14s ease, box-shadow .14s ease, opacity .12s ease;
 }
-button:hover, .btn:hover{ transform: translateY(-2px); }
-button:active, .btn:active{ transform: translateY(0); }
 
-input[type="text"], input[type="password"], textarea, select {
-  padding: 10px 12px;
+a {
+  color: var(--joy-primary);
+  text-decoration: none;
+  transition: var(--joy-transition);
+}
+
+a:hover {
+  color: var(--joy-accent-3);
+  text-decoration: none;
+}
+
+/* Buttons */
+.btn,
+button {
   border-radius: var(--joy-radius-sm);
-  border: 1px solid rgba(15,23,42,0.08);
-  background: rgba(255,255,255,0.9);
-  box-shadow: 0 4px 12px rgba(2,6,23,0.04) inset;
+  font-weight: 600;
+  border: none;
+  transition: var(--joy-transition);
+  cursor: pointer;
+}
+
+.btn-primary,
+.btn-primary:hover {
+  background: var(--joy-gradient-primary);
+  border-color: var(--joy-primary);
+  color: white;
+}
+
+.btn-primary:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--joy-shadow-hover);
+}
+
+.btn-secondary,
+.btn-secondary:hover {
+  background: var(--joy-gradient-secondary);
+  border-color: var(--joy-accent);
+  color: white;
+}
+
+.btn-secondary:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--joy-shadow-hover);
+}
+
+/* Forms */
+.form-control,
+.form-select,
+textarea {
+  border-radius: var(--joy-radius-sm);
+  border: 1px solid var(--joy-border-light);
+  padding: 10px 12px;
+  transition: var(--joy-transition);
+  font-size: 1rem;
+}
+
+.form-control:focus,
+.form-select:focus,
+textarea:focus {
+  border-color: var(--joy-primary);
+  box-shadow: 0 0 0 3px rgba(255, 107, 107, 0.1);
   outline: none;
 }
-input:focus, textarea:focus, select:focus{ box-shadow: 0 6px 20px rgba(11,26,49,0.08); border-color: var(--joy-accent-2); }
 
+/* Cards & containers */
 .card {
-  background: var(--joy-surface);
-  border-radius: var(--joy-radius);
-  padding: 14px;
+  border: none;
+  border-radius: var(--joy-radius-lg);
   box-shadow: var(--joy-shadow);
+  transition: var(--joy-transition);
+  background: var(--joy-bg-white);
 }
 
-/* Navbar tweaks to make it pop */
-.app-navbar, nav {
-  background: linear-gradient(90deg, rgba(255,255,255,0.6), rgba(255,255,255,0.5));
-  border-radius: calc(var(--joy-radius) - 4px);
-  padding: 8px 12px;
-  box-shadow: 0 6px 18px rgba(15,23,42,0.06);
+.card:hover {
+  box-shadow: var(--joy-shadow-hover);
+  transform: translateY(-2px);
 }
 
-a { color: var(--joy-primary); font-weight:600; }
-
-/* Toaster / toast friendly defaults */
-.toast {
-  border-radius: 10px;
-  box-shadow: var(--joy-elevation);
-  background: linear-gradient(90deg, #fff, rgba(255,255,255,0.86));
-  color: var(--joy-text);
-  padding: 10px 14px;
+/* Navbar overrides for Joy branding */
+.navbar {
+  background: var(--joy-bg-white) !important;
+  box-shadow: var(--joy-shadow);
+  border-bottom: 3px solid var(--joy-primary);
 }
 
-/* Small helpers */
-.muted { color: var(--joy-muted); }
-.accent { color: var(--joy-accent); }
-.accent-2 { color: var(--joy-accent-2); }
+.navbar-brand,
+.navbar-brand b {
+  color: var(--joy-primary) !important;
+  font-size: 1.8rem;
+  font-weight: 700;
+  letter-spacing: -0.5px;
+}
 
-/* Responsive tweaks */
-@media (max-width: 600px) {
-  .joy-container { margin: 12px; padding: 12px; }
+.nav-link {
+  color: var(--joy-text-dark) !important;
+  font-weight: 500;
+  margin: 0 8px;
+  border-bottom: 2px solid transparent;
+  transition: var(--joy-transition);
+  padding-bottom: 4px !important;
+}
+
+.nav-link:hover,
+.nav-link.active {
+  color: var(--joy-primary) !important;
+  border-bottom-color: var(--joy-primary);
+}
+
+/* Badges & pills */
+.badge {
+  border-radius: var(--joy-radius-sm);
+  padding: 6px 12px;
+  font-weight: 600;
+}
+
+.badge-primary {
+  background: var(--joy-gradient-primary);
+}
+
+/* List groups */
+.list-group-item {
+  border-color: var(--joy-border-light);
+  border-radius: var(--joy-radius-sm);
+  margin-bottom: 8px;
+}
+
+.list-group-item:hover {
+  background-color: var(--joy-bg-light);
+  transform: translateX(4px);
+}
+
+/* Utility classes */
+.bg-joy-light {
+  background-color: var(--joy-bg-light) !important;
+}
+
+.bg-joy-white {
+  background-color: var(--joy-bg-white) !important;
+}
+
+.text-joy-primary {
+  color: var(--joy-primary) !important;
+}
+
+.text-joy-secondary {
+  color: var(--joy-secondary) !important;
+}
+
+.text-joy-accent {
+  color: var(--joy-accent) !important;
+}
+
+.gradient-joy-primary {
+  background: var(--joy-gradient-primary);
+  color: white;
+}
+
+.gradient-joy-secondary {
+  background: var(--joy-gradient-secondary);
+  color: white;
+}
+
+/* Shadow utilities */
+.shadow-joy {
+  box-shadow: var(--joy-shadow) !important;
+}
+
+.shadow-joy-hover {
+  transition: var(--joy-transition);
+}
+
+.shadow-joy-hover:hover {
+  box-shadow: var(--joy-shadow-hover) !important;
+}
+
+/* Rounded corners */
+.rounded-joy {
+  border-radius: var(--joy-radius) !important;
+}
+
+.rounded-joy-lg {
+  border-radius: var(--joy-radius-lg) !important;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .navbar-brand b {
+    font-size: 1.5rem;
+  }
+
+  .nav-link {
+    margin: 4px 0;
+  }
 }

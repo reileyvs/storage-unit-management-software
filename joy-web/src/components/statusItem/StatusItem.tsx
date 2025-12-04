@@ -1,0 +1,51 @@
+import { Link } from "react-router-dom";
+import { Status } from "joy-shared";
+
+import { useUserNavigationHook } from "../userNavigation/useUserNavigationHook";
+import Post from "./Post";
+
+interface Props {
+  item: Status;
+  featurePath: string;
+}
+
+const StatusItem = (props: Props) => {
+  const { navigateToUser } = useUserNavigationHook();
+
+  const handleNavigation = async (event: React.MouseEvent) => {
+    await navigateToUser(event, props.featurePath);
+  }
+
+  return (
+    <div className="col bg-light mx-0 px-0">
+      <div className="container px-0">
+        <div className="row mx-0 px-0">
+          <div className="col-auto p-3">
+            <img
+              src={props.item.user.imageUrl}
+              className="img-fluid"
+              width="80"
+              alt="Posting user"
+            />
+          </div>
+          <div className="col">
+            <h2>
+              <b>
+                {props.item.user.firstName} {props.item.user.lastName}
+              </b>{" "}
+              -{" "}
+              <Link to={`/feed/${props.item.user.alias}`} onClick={handleNavigation}>
+                {props.item.user.alias}
+              </Link>
+            </h2>
+            {props.item.formattedDate}
+            <br />
+            <Post status={props.item} featurePath="/feed" />
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+export default StatusItem;

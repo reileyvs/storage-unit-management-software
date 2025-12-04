@@ -1,44 +1,38 @@
 import "./AppNavbar.css";
-import { useContext } from "react";
-import {
-  UserInfoContext,
-  UserInfoActionsContext,
-} from "../userInfo/UserInfoContexts";
 import { Container, Nav, Navbar } from "react-bootstrap";
 import { NavLink, useLocation, useNavigate } from "react-router-dom";
 import Image from "react-bootstrap/Image";
-import { ToastActionsContext } from "../toaster/ToastContexts";
-import { AuthToken } from "joy-shared";
-import { ToastType } from "../toaster/Toast";
+import { useMessageActions } from "../toaster/MessageHooks";
+import {
+  useUserInfoActionsHook,
+  useUserInfoHook,
+} from "../userInfo/UserInfoHooks";
+import { AppNavbarPresenter, AppNavbarView } from "../../presenter/AppNavbarPresenter";
+import { useRef } from "react";
 
 const AppNavbar = () => {
   const location = useLocation();
-  const { authToken, displayedUser } = useContext(UserInfoContext);
-  const { clearUserInfo } = useContext(UserInfoActionsContext);
+  const { authToken, displayedUser } = useUserInfoHook();
+  const { clearUserInfo } = useUserInfoActionsHook();
   const navigate = useNavigate();
-  const { displayToast, deleteToast } = useContext(ToastActionsContext);
+  const { displayInfoMessage, displayErrorMessage, deleteMessage } =
+    useMessageActions();
 
-  const logOut = async () => {
-    const loggingOutToastId = displayToast(ToastType.Info, "Logging Out...", 0);
-
-    try {
-      await logout(authToken!);
-
-      deleteToast(loggingOutToastId);
-      clearUserInfo();
-      navigate("/login");
-    } catch (error) {
-      displayToast(
-        ToastType.Error,
-        `Failed to log user out because of exception: ${error}`,
-        0
-      );
-    }
+  const listener: AppNavbarView = {
+    displayInfoMessage: displayInfoMessage,
+    displayErrorMessage: displayErrorMessage,
+    deleteMessage: deleteMessage,
+    clearUserInfo: clearUserInfo,
+    navigate: navigate,
   };
 
-  const logout = async (authToken: AuthToken): Promise<void> => {
-    // Pause so we can see the logging out message. Delete when the call to the server is implemented.
-    await new Promise((res) => setTimeout(res, 1000));
+  const presenterRef = useRef<AppNavbarPresenter | null>(null);
+  if (presenterRef.current == null) {
+    presenterRef.current = new AppNavbarPresenter(listener);
+  }
+
+  const logOut = async () => {
+    await presenterRef.current!.logout(authToken!)
   };
 
   return (
@@ -54,7 +48,7 @@ const AppNavbar = () => {
           <div className="d-flex flex-row">
             <div className="p-2">
               <NavLink className="brand-link" to="/">
-                <Image src={"/bird-white-32.png"} alt="" />
+                <span style={{ fontSize: '1.8rem' }}>✨</span>
               </NavLink>
             </div>
             <div id="brand-title" className="p-3">
@@ -81,38 +75,26 @@ const AppNavbar = () => {
             </Nav.Item>
             <Nav.Item>
               <NavLink
-                to={`/story/${displayedUser!.alias}`}
+                to={`/home/${displayedUser!.alias}`}
                 className={() =>
-                  location.pathname.startsWith("/story/")
+                  location.pathname.startsWith("/home/")
                     ? "nav-link active"
                     : "nav-link"
                 }
               >
-                Giving
+                Home
               </NavLink>
             </Nav.Item>
             <Nav.Item>
               <NavLink
-                to={`/followees/${displayedUser!.alias}`}
+                to={`/connections/${displayedUser!.alias}`}
                 className={() =>
-                  location.pathname.startsWith("/followees/")
+                  location.pathname.startsWith("/connections/")
                     ? "nav-link active"
                     : "nav-link"
                 }
               >
-                Lending
-              </NavLink>
-            </Nav.Item>
-            <Nav.Item>
-              <NavLink
-                to={`/followers/${displayedUser!.alias}`}
-                className={() =>
-                  location.pathname.startsWith("/followers/")
-                    ? "nav-link active"
-                    : "nav-link"
-                }
-              >
-                Community
+                Connections
               </NavLink>
             </Nav.Item>
             <Nav.Item>

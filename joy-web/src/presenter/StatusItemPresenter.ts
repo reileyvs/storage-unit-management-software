@@ -1,0 +1,12 @@
+import { Status } from "joy-shared";
+import { StatusService } from "../model.service/StatusService";
+import { PagedItemPresenter } from "./PagedItemPresenter";
+
+export abstract class StatusItemPresenter extends PagedItemPresenter<
+  Status,
+  StatusService
+> {
+  protected serviceFactory(): StatusService {
+    return new StatusService();
+  }
+}

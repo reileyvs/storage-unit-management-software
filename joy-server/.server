@@ -1,0 +1,19 @@
+BUCKET='tweeter-vince-bucket'
+LAMBDA_ROLE='arn:aws:iam::027525286683:role/cs340script'
+EDIT_LAMBDALIST='
+tweeterGetFollowees | lambda/follow/GetFolloweesLambda.handler
+tweeterGetFollowers | lambda/follow/GetFollowersLambda.handler
+tweeterGetFolloweesCount | lambda/follow/GetFolloweesCountLambda.handler
+tweeterGetFollowersCount | lambda/follow/GetFollowersCountLambda.handler
+tweeterIsFollower | lambda/follow/IsFollowerLambda.handler
+tweeterFollow | lambda/follow/FollowLambda.handler
+tweeterUnfollow | lambda/follow/UnfollowLambda.handler
+tweeterGetUser | lambda/user/GetUserLambda.handler
+tweeterLogin | lambda/user/LoginLambda.handler
+tweeterRegister | lambda/user/RegisterLambda.handler
+tweeterLogout | lambda/user/LogoutLambda.handler
+tweeterGetMoreStories | lambda/status/GetMoreStoriesLambda.handler
+tweeterGetMoreFeed | lambda/status/GetMoreFeedLambda.handler
+tweeterPostStatus | lambda/status/PostStatusLambda.handler
+'
+LAMBDALAYER_ARN='arn:aws:lambda:us-east-2:027525286683:layer:tweeterLambdaLayer:22'
