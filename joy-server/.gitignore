@@ -1,5 +1,6 @@
 /node_modules
 /dist
 /nodejs
+.env
 dist.zip
 nodejs.zip
