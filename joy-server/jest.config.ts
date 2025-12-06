@@ -10,6 +10,8 @@ const config: JestConfigWithTsJest = {
   },
   moduleNameMapper: {
     "^(\\.{1,2}/.*)\\.js$": "$1", // fixes ESM import paths
+    "^joy-shared$": "<rootDir>/../joy-shared/src/index.ts",
+    "^joy-shared/(.*)$": "<rootDir>/../joy-shared/src/$1",
   },
 };
 

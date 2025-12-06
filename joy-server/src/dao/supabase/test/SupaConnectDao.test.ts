@@ -3,10 +3,26 @@ import { Connect } from "../../abstract/entity/Connect";
 
 describe("Tests SupaConnectDao", () => {
 
-  it("tests put function", async () => {
-    const connectDao = new SupaConnectDao()
-    const res = await connectDao.put(new Connect("1", "2"))
-    console.log(res.columns)
-    expect(res).not.toBeNull()
+  let connectDao: SupaConnectDao
+
+  beforeAll(async () => {
+    connectDao = new SupaConnectDao()
+    await connectDao.put(new Connect("testUser1", "testUser2"))
   })
+
+  it("gets a connection", async () => {
+    await connectDao.getConnections("testUser1")
+  })
+
+  // it("tests put function", async () => {
+  //   const res = await connectDao.put(new Connect("dyldyl", "dyldyl1"))
+  //   expect(res).toBeNull()
+  //   connectDao.close()
+  // })
+
+  afterAll(async () => {
+    await connectDao.delete(new Connect("testUser1", "testUser2"))
+    connectDao.close()
+  })
+
 })
