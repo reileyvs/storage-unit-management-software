@@ -37,6 +37,7 @@ Technology
 - Frontend: React + TypeScript + Vite — fast iteration and modern developer DX.
 - Backend: modular DAOs with Postgres/Supabase and optional AWS S3 for media.
 - Shared types and models in `joy-shared` for re-use across services and clients.
+![Tech Stack](./docs/images/tech_stack.png)
 
 Traction & next steps
 - Minimal prototype with user flows for posting, browsing, and connecting (in repo).
@@ -48,12 +49,12 @@ How to help / partnership opportunities
 - Help with UX research, design, or local outreach to validate the product-market fit.
 
 Get in touch
-- Email: [your-email@example.com]
-- Demo: run the app locally (`cd joy-web && npm install && npm run dev`) and try the flows.
+- Email: [vincentsreiley@gmail.com]
 
-Notes about images
-- This README references two images that showcase the product: `docs/images/hero.png` and `docs/images/items.png`.
-- If you provided photos as attachments, place them in `docs/images/` with those filenames so they render in the README.
+Database
+![Hero image](./docs/images/db.png)
+
+
 
 --
 _Thanks for building a kinder, more sustainable future. Joy is about the small exchanges that ripple outward._
