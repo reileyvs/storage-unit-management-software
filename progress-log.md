@@ -9,3 +9,4 @@
 | 12-03 | 1:30 | Created pitch and added server files and changed UI again |
 | 12-04 | 3:00 | Created stubbed Supabase DAOs to replace AWS DAOs and implemented SupaConnectDao.put(). Created a test for SupaConnectDAO |
 | 12-05 | 3:00 | Finished SupaUserDao implementation and created test function for SupaUserDao |
+| 12-06 | 4:00 |  |
