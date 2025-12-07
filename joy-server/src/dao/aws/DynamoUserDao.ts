@@ -12,7 +12,7 @@ import { User, UserDto } from "joy-shared";
 import { UserDao } from "../abstract/UserDao";
 import bcrypt from "bcryptjs"
 
-export class DynamoUserDao implements UserDao {
+export class DynamoUserDao  {
   private readonly client = DynamoDBDocumentClient.from(new DynamoDBClient());
   readonly tablename = "user";
   readonly firstNameAttr = "firstName";

@@ -28,9 +28,13 @@ export class FollowService {
   ): Promise<[UserDto[], boolean]> {
     await this.authenticate(token)
     const page = await this.followDao.getPageOfFollowees(userAlias, pageSize, lastUser?.alias)
-    const users = await this.userDao.getBatchOfUsers(page.values.map(value => value.followeeHandle))
-    const dtos = users ? users.map((user: User | undefined) => user!.dto) : [];
-    return [dtos, page.hasMorePages];
+    let users = await this.userDao.getList(page.values.map(value => value.followeeHandle))
+    if (!users) {
+      users = []
+    } else {
+      users = users.filter(user => user != undefined) as UserDto[]
+    }
+    return [users ? users : [], page.hasMorePages];
   }
   async loadMoreFollowers(
     token: string,
@@ -40,17 +44,17 @@ export class FollowService {
   ): Promise<[UserDto[], boolean]> {
     await this.authenticate(token)
     const page = await this.followDao.getPageOfFollowers(userAlias, pageSize, lastUser?.alias)
-    const users = await this.userDao.getBatchOfUsers(page.values.map(value => value.followerHandle))
-    const dtos = users ? users.map((user: User | undefined) => user!.dto) : [];
-    return [dtos, page.hasMorePages];
+    let users = await this.userDao.getList(page.values.map(value => value.followerHandle))
+    if (!users) {
+      users = []
+    } else {
+      users = users.filter(user => user != undefined) as UserDto[]
+    }
+    return [users ? users : [], page.hasMorePages];
   }
-  async getFollowerCount(token: string, userAlias: string): Promise<number> {
+  async getConnectionCount(token: string, userAlias: string): Promise<number> {
     await this.authenticate(token)
-    return this.userDao.getFollowerCount(userAlias)
-  }
-  async getFolloweeCount(token: string, userAlias: string): Promise<number> {
-    await this.authenticate(token)
-    return this.userDao.getFolloweeCount(userAlias)
+    return this.userDao.getConnectionCount(userAlias)
   }
   async getIsFollowerStatus(
     token: string,
@@ -69,11 +73,11 @@ export class FollowService {
     
     await this.authenticate(token)
     await this.followDao.put(new Follows(currentUser, userToFollow))
-    await this.userDao.addFollowee(currentUser)
-    await this.userDao.addFollower(userToFollow)
+    await this.userDao.addConnection(currentUser)
+    await this.userDao.addConnection(userToFollow)
 
-    const followerCount = await this.getFollowerCount(token, userToFollow);
-    const followeeCount = await this.getFolloweeCount(token, userToFollow);
+    const followerCount = await this.getConnectionCount(token, userToFollow);
+    const followeeCount = await this.getConnectionCount(token, userToFollow);
 
     return [followerCount, followeeCount];
   }
@@ -86,11 +90,9 @@ export class FollowService {
     await this.authenticate(token)
     const unfollow = new Follows(currentUser, userToUnfollow)
     await this.followDao.delete(unfollow)
-    await this.userDao.removeFollowee(currentUser)
-    await this.userDao.removeFollower(userToUnfollow)
 
-    const followerCount = await this.getFollowerCount(token, userToUnfollow);
-    const followeeCount = await this.getFolloweeCount(token, userToUnfollow);
+    const followerCount = await this.userDao.removeConnection(currentUser)
+    const followeeCount = await this.userDao.removeConnection(userToUnfollow)
 
     return [followerCount, followeeCount];
   }

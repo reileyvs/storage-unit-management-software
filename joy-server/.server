@@ -1,19 +1,19 @@
-BUCKET='tweeter-vince-bucket'
+BUCKET='joy-vince-bucket'
 LAMBDA_ROLE='arn:aws:iam::027525286683:role/cs340script'
 EDIT_LAMBDALIST='
-tweeterGetFollowees | lambda/follow/GetFolloweesLambda.handler
-tweeterGetFollowers | lambda/follow/GetFollowersLambda.handler
-tweeterGetFolloweesCount | lambda/follow/GetFolloweesCountLambda.handler
-tweeterGetFollowersCount | lambda/follow/GetFollowersCountLambda.handler
-tweeterIsFollower | lambda/follow/IsFollowerLambda.handler
-tweeterFollow | lambda/follow/FollowLambda.handler
-tweeterUnfollow | lambda/follow/UnfollowLambda.handler
-tweeterGetUser | lambda/user/GetUserLambda.handler
-tweeterLogin | lambda/user/LoginLambda.handler
-tweeterRegister | lambda/user/RegisterLambda.handler
-tweeterLogout | lambda/user/LogoutLambda.handler
-tweeterGetMoreStories | lambda/status/GetMoreStoriesLambda.handler
-tweeterGetMoreFeed | lambda/status/GetMoreFeedLambda.handler
-tweeterPostStatus | lambda/status/PostStatusLambda.handler
+joyGetFollowees | lambda/follow/GetFolloweesLambda.handler
+joyGetFollowers | lambda/follow/GetFollowersLambda.handler
+joyGetFolloweesCount | lambda/follow/GetFolloweesCountLambda.handler
+joyGetFollowersCount | lambda/follow/GetFollowersCountLambda.handler
+joyIsFollower | lambda/follow/IsFollowerLambda.handler
+joyFollow | lambda/follow/FollowLambda.handler
+joyUnfollow | lambda/follow/UnfollowLambda.handler
+joyGetUser | lambda/user/GetUserLambda.handler
+joyLogin | lambda/user/LoginLambda.handler
+joyRegister | lambda/user/RegisterLambda.handler
+joyLogout | lambda/user/LogoutLambda.handler
+joyGetMoreStories | lambda/status/GetMoreStoriesLambda.handler
+joyGetMoreFeed | lambda/status/GetMoreFeedLambda.handler
+joyPostStatus | lambda/status/PostStatusLambda.handler
 '
-LAMBDALAYER_ARN='arn:aws:lambda:us-east-2:027525286683:layer:tweeterLambdaLayer:22'
+LAMBDALAYER_ARN='arn:aws:lambda:us-east-2:027525286683:layer:joyLambdaLayer:1'

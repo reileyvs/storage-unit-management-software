@@ -24,13 +24,14 @@ export class UserService {
     alias: string
   ): Promise<User | null> {
     await this.authenticate(token)
-    return this.userDao.getUser(alias)
+    return User.fromDto(await this.userDao.get(alias))
   };
   async login(
     alias: string,
     password: string
   ): Promise<[User, AuthToken]> {
-    const user = await this.userDao.login(alias, password)
+    const userDto = await this.userDao.login(alias, password)
+    const user = User.fromDto(userDto)
 
     if (user === null) {
       throw new Error("[Bad Request] Invalid alias or password");
@@ -48,12 +49,12 @@ export class UserService {
     imageFileExtension: string
   ): Promise<[User, AuthToken]> {
     const imageUrl = await this.storageDao.storeImage(alias + "." + imageFileExtension, userImageBytes)
-    const userCheck = await this.userDao.getUser(alias)
+    const userCheck = await this.userDao.get(alias)
     if (userCheck != null) {
       throw new Error("[Bad Request] Alias is already taken")
     }
-    const user = await this.userDao.register(firstName, lastName, alias, password, imageUrl);
-
+    const userDto = await this.userDao.register(firstName, lastName, alias, password, imageUrl);
+    const user = User.fromDto(userDto)
     if (user === null) {
       throw new Error("[Bad Request] Invalid registration");
     }
