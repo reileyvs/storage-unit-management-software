@@ -10,10 +10,10 @@ Joy is a community-driven platform that makes giving and lending simple, safe, a
 - Strengthen neighborhoods and personal networks through small acts of generosity.
 - Offer a friendly, private alternative to public marketplaces.
 
-**The problem**
+**The problem** -- 
 Many online marketplaces prioritize transactions over relationships. Items are listed to the world, interactions are anonymous, and trust-building is expensive. People who want to give or lend to neighbors often lack a simple, private, and joyful way to do so.
 
-**Our solution**
+**Our solution** -- 
 Joy focuses on the human experience: a warm, trust-first marketplace for your local circles.
 - Post items to give or lend to your network.
 - Discover items shared by people you already know or are connected to.
