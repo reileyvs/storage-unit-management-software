@@ -8,10 +8,21 @@ describe("Tests SupaConnectDao", () => {
   beforeAll(async () => {
     connectDao = new SupaConnectDao()
     await connectDao.put(new Connect("testUser1", "testUser2"))
+    await connectDao.put(new Connect("testUser1", "testUser3"))
   })
 
   it("gets a connection", async () => {
-    await connectDao.getConnections("testUser1")
+    const res = await connectDao.get(new Connect("testUser1", "testUser2"))
+    expect(res[0]).not.toBeNull()
+    expect(res[0].user_id).toBe("testUser1")
+  })
+
+  it("gets a list of connections", async () => {
+    const res = await connectDao.getConnections("testUser1")
+    expect(res[0]).not.toBeNull()
+    expect(res[0].user_id).toBe("testUser1")
+    expect(res[1]).not.toBeNull()
+    expect(res[1].connection_id).toBe("testUser3")
   })
 
   // it("tests put function", async () => {
@@ -22,6 +33,7 @@ describe("Tests SupaConnectDao", () => {
 
   afterAll(async () => {
     await connectDao.delete(new Connect("testUser1", "testUser2"))
+    await connectDao.delete(new Connect("testUser1", "testUser3"))
     connectDao.close()
   })
 

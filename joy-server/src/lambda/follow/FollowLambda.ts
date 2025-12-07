@@ -1,20 +1,9 @@
-import type { FollowRequest, FollowResponse, ItemRequest } from "joy-shared"
+import type { FollowRequest, FollowResponse } from "joy-shared"
 import { FollowService } from "../../model/service/FollowService.js";
 export const handler = async (request: FollowRequest): Promise<FollowResponse> => {
   const followService = new FollowService();
-  let followeeCount = null
-  let followerCount = null
-  try {
-    [followeeCount, followerCount] = await followService.follow(request.token, request.userAlias, request.displayedUser)
-  } catch (e) {
-    return {
-      success: false,
-      message: JSON.stringify(e),
-      followeeCount: 0,
-      followerCount: 0,
-    };
-  }
-  
+  const [followeeCount, followerCount] = await followService.follow(request.token, request.userAlias, request.displayedUser)
+
   return {
     success: true,
     message: null,
