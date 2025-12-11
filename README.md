@@ -50,7 +50,7 @@ Get in touch
 - Email: [vincentsreiley@gmail.com]
 
 Database
-![Hero image](./docs/images/db.png)
+![Database image](./docs/images/db.png)
 
 
 

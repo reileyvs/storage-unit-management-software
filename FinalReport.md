@@ -26,6 +26,10 @@ Joy focuses on the human experience: a warm, trust-first marketplace for your lo
 - Backend: DAOs with Postgres/Supabase. (This was probably the easiest part)
 ![Tech Stack](./docs/images/tech_stack.png)
 
+**Database**
+I used Supabase which was a breath of fresh air after using DynamoDB for CS340. Querying the data directly from my DAOs with SQL was so nice
+![Database image](./docs/images/db.png)
+
 **AI**
 - I used AI sparingly for my project. There is nothing implemented in the app that involves AI, but I did use an application called Lovable to generate front-end visuals which I plan on implementing into my actual UI, because the app gives you the code as well.
 
