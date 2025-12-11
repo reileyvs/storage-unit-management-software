@@ -22,9 +22,8 @@ Joy focuses on the human experience: a warm, trust-first marketplace for your lo
 ![Items grid](./docs/images/items.png)
 
 **Technology**
-- Frontend: React + TypeScript + Vite — fast iteration and modern developer DX.
-- Backend: modular DAOs with Postgres/Supabase and optional AWS S3 for media.
-- Shared types and models in `joy-shared` for re-use across services and clients.
+- Frontend: React + TypeScript + Vite
+- Backend: DAOs with Postgres/Supabase. (This was probably the easiest part)
 ![Tech Stack](./docs/images/tech_stack.png)
 
 **AI**
