@@ -10,4 +10,5 @@
 | 12-04 | 3:00 | Created stubbed Supabase DAOs to replace AWS DAOs and implemented SupaConnectDao.put(). Created a test for SupaConnectDAO |
 | 12-05 | 3:00 | Finished SupaUserDao implementation and created test function for SupaUserDao |
 | 12-06 | 4:00 | Finished and polished README.md, added new function in connectDao, added connectDao test, made changes to UserDao interface and fully implemented SupaUserDao and replaced DynamoUserDao with it through the UserDaoFactory to test integration on test UI |
-| Total | 20:00 | At least 10 hours left |
+| 12-10 | 1:00 | Created Final Report |
+| Total | 21:00 | 9 hours left |
